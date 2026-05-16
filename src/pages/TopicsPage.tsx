@@ -83,7 +83,7 @@ const Stone = () => {
   );
 };
 
-const CAVE_IMG = "https://cdn.poehali.dev/projects/ef9784f8-14ad-431d-bd41-8f39353f3998/files/4e63a2fe-6ca9-40b5-88ae-52af75491c76.jpg";
+const CAVE_IMG = "https://avatars.mds.yandex.net/get-shedevrum/15373038/img_9c0f7844dfb411efbc3f6aa9af691ef4/orig";
 
 const topics = [
   { id: 1, title: "Лучшие идеи для бизнеса", recordings: 5, hasCompilation: true },
