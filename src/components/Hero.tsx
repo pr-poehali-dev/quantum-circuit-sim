@@ -131,15 +131,7 @@ export default function Hero() {
         </motion.div>
       </button>
 
-      {/* Заголовок */}
-      <div className="relative z-10 text-center text-white px-6 -mt-40">
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-4 drop-shadow-lg">
-          АРОМАТ И УМ
-        </h1>
-        <p className="text-lg md:text-xl max-w-xl mx-auto opacity-80 leading-relaxed drop-shadow">
-          Голосовые идеи вашей команды — одним совершенным текстом.
-        </p>
-      </div>
+
     </div>
   );
 }
