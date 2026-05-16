@@ -137,7 +137,7 @@ export default function Hero() {
         onMouseEnter={() => setHovered("stone")}
         onMouseLeave={() => setHovered(null)}
         className="absolute z-10 cursor-pointer"
-        style={{ left: "2%", bottom: "18%" }}
+        style={{ left: "20%", top: "38%" }}
         animate={{ scale: hovered === "stone" ? 1.03 : 1 }}
         transition={{ duration: 0.2 }}
       >
