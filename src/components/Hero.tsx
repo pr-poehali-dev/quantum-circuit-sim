@@ -26,7 +26,7 @@ const mountains = [
   },
   {
     id: "chk",
-    label: "Гора Чужих Клиентов",
+    label: "Гора Чужих",
     href: "/listen",
     style: { right: "12%", top: "20%" },
     description: "Слушать компиляции",
