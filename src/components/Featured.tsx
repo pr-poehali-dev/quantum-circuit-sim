@@ -18,15 +18,8 @@ export default function Featured() {
   ];
 
   return (
-    <div id="about" className="flex flex-col lg:flex-row lg:justify-between lg:items-center min-h-screen px-6 py-20 lg:py-0 bg-white">
-      <div className="flex-1 h-[400px] lg:h-[800px] mb-12 lg:mb-0 lg:order-2">
-        <img
-          src="/images/mountain-landscape.jpg"
-          alt="Аудио платформа"
-          className="w-full h-full object-cover"
-        />
-      </div>
-      <div className="flex-1 text-left lg:h-[800px] flex flex-col justify-center lg:mr-16 lg:order-1">
+    <div id="about" className="flex flex-col items-center min-h-screen px-6 py-20 bg-white">
+      <div className="w-full max-w-2xl text-left flex flex-col justify-center">
         <h3 className="uppercase mb-4 text-sm tracking-widest text-neutral-500">Как это работает</h3>
         <p className="text-3xl lg:text-4xl mb-10 text-neutral-900 leading-tight font-light">
           Голос каждого участника важен — ИИ не выбирает победителя, он собирает лучшее из всех.
@@ -46,6 +39,6 @@ export default function Featured() {
           Начать работу
         </button>
       </div>
-    </div>
+  </div>
   );
 }
