@@ -1,5 +1,5 @@
 import { useScroll, useTransform, motion } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const mountains = [
@@ -37,6 +37,14 @@ export default function Hero() {
   const container = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState<string | null>(null);
   const navigate = useNavigate();
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.volume = 0.4;
+    audio.play().catch(() => {});
+  }, []);
   const { scrollYProgress } = useScroll({
     target: container,
     offset: ["start start", "end start"],
@@ -132,6 +140,12 @@ export default function Hero() {
       </button>
 
 
+      <audio
+        ref={audioRef}
+        src="https://cdn.freesound.org/previews/619/619015_5674468-lq.mp3"
+        loop
+        preload="auto"
+      />
     </div>
   );
 }
