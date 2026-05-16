@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import AdminPanel from "./pages/AdminPanel";
 import HousePage from "./pages/HousePage";
+import RegisterPage from "./pages/RegisterPage";
 import TopicsPage from "./pages/TopicsPage";
 import SKPanel from "./pages/SKPanel";
 import CHKPanel from "./pages/CHKPanel";
@@ -23,6 +24,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/house" element={<HousePage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="/admin" element={<AdminPanel />} />
           <Route path="/topics" element={<TopicsPage />} />
           <Route path="/login" element={<SKPanel />} />
