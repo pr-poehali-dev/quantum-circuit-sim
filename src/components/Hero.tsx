@@ -33,6 +33,70 @@ const mountains = [
   },
 ];
 
+const clouds = [
+  { id: 1, top: "8%", width: 120, opacity: 0.75, duration: 28, delay: 0, startX: "5%" },
+  { id: 2, top: "14%", width: 80, opacity: 0.55, duration: 38, delay: 6, startX: "20%" },
+  { id: 3, top: "6%", width: 160, opacity: 0.65, duration: 50, delay: 12, startX: "40%" },
+  { id: 4, top: "18%", width: 100, opacity: 0.5, duration: 34, delay: 20, startX: "65%" },
+];
+
+const flowers = [
+  { id: 1, left: "18%", bottom: "14%", emoji: "🌸", size: 22, delay: 0, amplitude: 4 },
+  { id: 2, left: "22%", bottom: "10%", emoji: "🌼", size: 18, delay: 0.4, amplitude: 5 },
+  { id: 3, left: "26%", bottom: "12%", emoji: "🌸", size: 20, delay: 0.8, amplitude: 3 },
+  { id: 4, left: "72%", bottom: "16%", emoji: "🌼", size: 16, delay: 0.3, amplitude: 6 },
+  { id: 5, left: "76%", bottom: "12%", emoji: "🌸", size: 22, delay: 0.9, amplitude: 4 },
+  { id: 6, left: "80%", bottom: "14%", emoji: "🌻", size: 18, delay: 0.5, amplitude: 5 },
+  { id: 7, left: "45%", bottom: "9%", emoji: "🌼", size: 16, delay: 1.1, amplitude: 4 },
+  { id: 8, left: "50%", bottom: "7%", emoji: "🌸", size: 14, delay: 0.6, amplitude: 3 },
+];
+
+function Cloud({ top, width, opacity, duration, delay, startX }: typeof clouds[0]) {
+  return (
+    <motion.div
+      className="absolute pointer-events-none"
+      style={{ top, width, opacity, zIndex: 2 }}
+      initial={{ x: startX }}
+      animate={{ x: ["0vw", "110vw"] }}
+      transition={{
+        duration,
+        delay,
+        repeat: Infinity,
+        ease: "linear",
+        repeatDelay: 0,
+      }}
+    >
+      <svg viewBox="0 0 200 80" fill="white" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="100" cy="55" rx="90" ry="25" />
+        <ellipse cx="70" cy="45" rx="50" ry="30" />
+        <ellipse cx="130" cy="42" rx="45" ry="28" />
+        <ellipse cx="100" cy="38" rx="40" ry="25" />
+      </svg>
+    </motion.div>
+  );
+}
+
+function Flower({ left, bottom, emoji, size, delay, amplitude }: typeof flowers[0]) {
+  return (
+    <motion.div
+      className="absolute pointer-events-none select-none"
+      style={{ left, bottom, fontSize: size, zIndex: 3, originY: 1 }}
+      animate={{
+        rotate: [0, amplitude, -amplitude, amplitude * 0.5, 0],
+        y: [0, -2, 0, -1, 0],
+      }}
+      transition={{
+        duration: 3 + delay,
+        delay,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
+    >
+      {emoji}
+    </motion.div>
+  );
+}
+
 export default function Hero() {
   const container = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState<string | null>(null);
@@ -45,6 +109,7 @@ export default function Hero() {
     audio.volume = 0.4;
     audio.play().catch(() => {});
   }, []);
+
   const { scrollYProgress } = useScroll({
     target: container,
     offset: ["start start", "end start"],
@@ -64,8 +129,18 @@ export default function Hero() {
         />
       </motion.div>
 
+      {/* Облака */}
+      {clouds.map((c) => (
+        <Cloud key={c.id} {...c} />
+      ))}
+
+      {/* Цветы */}
+      {flowers.map((f) => (
+        <Flower key={f.id} {...f} />
+      ))}
+
       {/* Затемнение для читаемости */}
-      <div className="absolute inset-0 bg-black/30 z-[1]" />
+      <div className="absolute inset-0 bg-black/30 z-[4]" />
 
       {/* Кликабельные горы */}
       {mountains.map((m) => (
@@ -75,9 +150,8 @@ export default function Hero() {
           onMouseEnter={() => setHovered(m.id)}
           onMouseLeave={() => setHovered(null)}
           className="absolute z-10 flex flex-col items-center group cursor-pointer"
-          style={m.style as React.CSSProperties}
+          style={{ ...(m.style as React.CSSProperties), zIndex: 5 }}
         >
-          {/* Маркер сверху */}
           <div className="flex flex-col items-center">
             <motion.div
               animate={{ scale: hovered === m.id ? 1.1 : 1 }}
@@ -88,7 +162,6 @@ export default function Hero() {
                 {m.label}
               </span>
             </motion.div>
-            {/* Подсказка при наведении */}
             <motion.div
               animate={{ opacity: hovered === m.id ? 1 : 0, height: hovered === m.id ? "auto" : 0 }}
               transition={{ duration: 0.2 }}
@@ -96,14 +169,12 @@ export default function Hero() {
             >
               <p className="text-white text-[9px] opacity-80 text-center whitespace-nowrap">{m.description}</p>
             </motion.div>
-            {/* Линия-указатель вниз */}
             <motion.div
               animate={{ height: hovered === m.id ? 28 : 16 }}
               transition={{ duration: 0.2 }}
               className="w-0.5 bg-white/70"
               style={{ height: 16 }}
             />
-            {/* Точка */}
             <motion.div
               animate={{ scale: hovered === m.id ? 1.5 : 1 }}
               transition={{ duration: 0.2 }}
@@ -113,24 +184,22 @@ export default function Hero() {
         </button>
       ))}
 
-      {/* Домик — кликабельная зона поверх домика на картинке */}
+      {/* Домик */}
       <button
         onClick={() => navigate("/house")}
         onMouseEnter={() => setHovered("house")}
         onMouseLeave={() => setHovered(null)}
-        className="absolute z-10 cursor-pointer"
-        style={{ left: "12%", bottom: "34%", width: "7%", aspectRatio: "1" }}
+        className="absolute cursor-pointer"
+        style={{ left: "12%", bottom: "34%", width: "7%", aspectRatio: "1", zIndex: 5 }}
       >
         <motion.div
           animate={{ scale: hovered === "house" ? 1.05 : 1 }}
           transition={{ duration: 0.2 }}
           className="w-full h-full relative flex flex-col items-center justify-end"
         >
-          {/* Постоянная надпись над домиком */}
           <div className="absolute -top-7 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-sm text-black rounded-md px-2 py-1 text-[10px] font-bold uppercase tracking-wide whitespace-nowrap shadow">
             Регистрация
           </div>
-          {/* Прозрачная зона с рамкой при наведении */}
           <motion.div
             animate={{ opacity: hovered === "house" ? 1 : 0 }}
             transition={{ duration: 0.2 }}
@@ -138,7 +207,6 @@ export default function Hero() {
           />
         </motion.div>
       </button>
-
 
       <audio
         ref={audioRef}
