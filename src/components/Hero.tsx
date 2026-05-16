@@ -1,5 +1,6 @@
 import { useScroll, useTransform, motion } from "framer-motion";
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const mountains = [
   {
@@ -35,6 +36,7 @@ const mountains = [
 export default function Hero() {
   const container = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState<string | null>(null);
+  const navigate = useNavigate();
   const { scrollYProgress } = useScroll({
     target: container,
     offset: ["start start", "end start"],
@@ -59,9 +61,9 @@ export default function Hero() {
 
       {/* Кликабельные горы */}
       {mountains.map((m) => (
-        <a
+        <button
           key={m.id}
-          href={m.href}
+          onClick={() => navigate(m.href)}
           onMouseEnter={() => setHovered(m.id)}
           onMouseLeave={() => setHovered(null)}
           className="absolute z-10 flex flex-col items-center group cursor-pointer"
@@ -100,7 +102,7 @@ export default function Hero() {
               className="w-2 h-2 rounded-full bg-white shadow-md border border-white/50"
             />
           </div>
-        </a>
+        </button>
       ))}
 
       {/* Заголовок */}
