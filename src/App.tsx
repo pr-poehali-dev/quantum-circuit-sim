@@ -12,6 +12,7 @@ import RegisterPage from "./pages/RegisterPage";
 import TopicsPage from "./pages/TopicsPage";
 import SKPanel from "./pages/SKPanel";
 import CHKPanel from "./pages/CHKPanel";
+import ChatPage from "./pages/ChatPage";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/admin" element={<AdminPanel />} />
           <Route path="/topics" element={<TopicsPage />} />
           <Route path="/login" element={<SKPanel />} />
+          <Route path="/chat" element={<ChatPage />} />
           <Route path="/listen" element={<CHKPanel />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
