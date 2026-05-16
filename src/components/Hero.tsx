@@ -105,27 +105,33 @@ export default function Hero() {
         </button>
       ))}
 
-      {/* Домик — точка входа */}
+      {/* Домик — кликабельная зона поверх домика на картинке */}
       <button
         onClick={() => navigate("/house")}
         onMouseEnter={() => setHovered("house")}
         onMouseLeave={() => setHovered(null)}
         className="absolute z-10 cursor-pointer"
-        style={{ left: "14%", bottom: "28%" }}
+        style={{ left: "12%", bottom: "34%", width: "7%", aspectRatio: "1" }}
       >
         <motion.div
-          animate={{ scale: hovered === "house" ? 1.15 : 1 }}
+          animate={{ scale: hovered === "house" ? 1.05 : 1 }}
           transition={{ duration: 0.2 }}
-          className="flex flex-col items-center gap-1"
+          className="w-full h-full relative flex flex-col items-center justify-end"
         >
+          {/* Подсказка при наведении */}
           <motion.div
             animate={{ opacity: hovered === "house" ? 1 : 0, y: hovered === "house" ? 0 : 4 }}
             transition={{ duration: 0.2 }}
-            className="bg-white/90 backdrop-blur-sm text-black rounded-md px-2 py-1 text-[10px] font-bold uppercase tracking-wide whitespace-nowrap shadow"
+            className="absolute -top-8 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-sm text-black rounded-md px-2 py-1 text-[10px] font-bold uppercase tracking-wide whitespace-nowrap shadow"
           >
             Войти / Регистрация
           </motion.div>
-          <span className="text-4xl drop-shadow-lg">🏡</span>
+          {/* Прозрачная зона с рамкой при наведении */}
+          <motion.div
+            animate={{ opacity: hovered === "house" ? 1 : 0 }}
+            transition={{ duration: 0.2 }}
+            className="absolute inset-0 border-2 border-white/60 rounded-lg bg-white/10"
+          />
         </motion.div>
       </button>
 
