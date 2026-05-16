@@ -4,34 +4,82 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 
 const Stone = () => {
+  const [clicked, setClicked] = useState(false);
   const [stoneHovered, setStoneHovered] = useState(false);
+
   return (
-    <motion.div
-      onMouseEnter={() => setStoneHovered(true)}
-      onMouseLeave={() => setStoneHovered(false)}
-      animate={{ scale: stoneHovered ? 1.04 : 1 }}
-      transition={{ duration: 0.2 }}
-      className="absolute z-20 cursor-default"
-      style={{ left: "4%", bottom: "22%" }}
-    >
-      <div
-        className="relative px-5 py-4 text-left"
-        style={{
-          background: "linear-gradient(160deg, #6b6b6b 0%, #4a4a4a 40%, #3a3a3a 100%)",
-          borderRadius: "40% 35% 45% 38% / 30% 40% 35% 42%",
-          boxShadow: "4px 6px 16px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -2px 4px rgba(0,0,0,0.4)",
-          border: "1px solid rgba(120,120,120,0.4)",
-          minWidth: "170px",
-          maxWidth: "200px",
-        }}
+    <>
+      <motion.button
+        onClick={() => setClicked(true)}
+        onMouseEnter={() => setStoneHovered(true)}
+        onMouseLeave={() => setStoneHovered(false)}
+        animate={{ scale: stoneHovered ? 1.06 : 1 }}
+        transition={{ duration: 0.2 }}
+        className="absolute z-20 cursor-pointer"
+        style={{ left: "4%", bottom: "22%" }}
       >
-        <div className="absolute top-2 left-4 w-8 h-2 rounded-full opacity-20" style={{ background: "white", transform: "rotate(-15deg)" }} />
-        <p className="text-[10px] leading-relaxed font-medium" style={{ color: "rgba(220,210,190,0.85)", textShadow: "0 1px 2px rgba(0,0,0,0.8)", fontFamily: "Georgia, serif" }}>
-          <span className="block mb-1">1. Скидки только Своим.</span>
-          <span className="block">2. Измени описание аромата более чем на 5% — получи <strong style={{ color: "rgba(255,220,100,0.9)" }}>+300 бонусов</strong></span>
-        </p>
-      </div>
-    </motion.div>
+        <div
+          className="relative px-5 py-4 text-left"
+          style={{
+            background: "linear-gradient(160deg, #6b6b6b 0%, #4a4a4a 40%, #3a3a3a 100%)",
+            borderRadius: "40% 35% 45% 38% / 30% 40% 35% 42%",
+            boxShadow: "4px 6px 16px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -2px 4px rgba(0,0,0,0.4)",
+            border: "1px solid rgba(120,120,120,0.4)",
+            minWidth: "170px",
+            maxWidth: "200px",
+          }}
+        >
+          <div className="absolute top-2 left-4 w-8 h-2 rounded-full opacity-20" style={{ background: "white", transform: "rotate(-15deg)" }} />
+          <p className="text-[10px] leading-relaxed font-medium" style={{ color: "rgba(220,210,190,0.85)", textShadow: "0 1px 2px rgba(0,0,0,0.8)", fontFamily: "Georgia, serif" }}>
+            <span className="block mb-1">1. Скидки только Своим.</span>
+            <span className="block">2. Измени описание аромата более чем на 5% — получи <strong style={{ color: "rgba(255,220,100,0.9)" }}>+300 бонусов</strong></span>
+          </p>
+        </div>
+      </motion.button>
+
+      {/* Увеличенный камень — модалка */}
+      {clicked && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.4 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.4 }}
+          transition={{ duration: 0.35, ease: "easeOut" }}
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          onClick={() => setClicked(false)}
+        >
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+          <motion.div
+            onClick={(e) => e.stopPropagation()}
+            className="relative z-10 px-12 py-10 text-left"
+            style={{
+              background: "linear-gradient(160deg, #6b6b6b 0%, #4a4a4a 40%, #3a3a3a 100%)",
+              borderRadius: "40% 35% 45% 38% / 30% 40% 35% 42%",
+              boxShadow: "8px 12px 40px rgba(0,0,0,0.8), inset 0 2px 0 rgba(255,255,255,0.1)",
+              border: "1px solid rgba(140,140,140,0.4)",
+              maxWidth: "420px",
+              width: "90vw",
+            }}
+          >
+            <div className="absolute top-4 left-8 w-16 h-3 rounded-full opacity-20" style={{ background: "white", transform: "rotate(-15deg)" }} />
+            <p
+              className="text-base leading-loose font-medium text-center"
+              style={{ color: "rgba(220,210,190,0.9)", textShadow: "0 1px 3px rgba(0,0,0,0.9)", fontFamily: "Georgia, serif" }}
+            >
+              <span className="block text-lg font-bold mb-4" style={{ color: "rgba(255,220,100,0.95)" }}>📜 Правила</span>
+              <span className="block mb-3">1. Скидки — только Своим клиентам.</span>
+              <span className="block">2. Измени описание аромата более чем на 5% и получи <strong style={{ color: "rgba(255,220,100,1)" }}>+300 бонусов</strong></span>
+            </p>
+            <button
+              onClick={() => setClicked(false)}
+              className="mt-6 w-full text-center text-xs"
+              style={{ color: "rgba(200,180,140,0.6)", fontFamily: "Georgia, serif" }}
+            >
+              × закрыть
+            </button>
+          </motion.div>
+        </motion.div>
+      )}
+    </>
   );
 };
 
