@@ -67,38 +67,37 @@ export default function Hero() {
           className="absolute z-10 flex flex-col items-center group cursor-pointer"
           style={m.style as React.CSSProperties}
         >
-          {/* Подсветка при наведении */}
-          <motion.div
-            animate={{ opacity: hovered === m.id ? 1 : 0, scale: hovered === m.id ? 1 : 0.8 }}
-            transition={{ duration: 0.25 }}
-            className="mb-2 bg-white/10 backdrop-blur-sm border border-white/30 rounded-xl px-4 py-2 text-center"
-          >
-            <p className="text-white text-xs opacity-80">{m.description}</p>
-          </motion.div>
-
-          {/* Маркер */}
+          {/* Маркер сверху */}
           <div className="flex flex-col items-center">
             <motion.div
-              animate={{ scale: hovered === m.id ? 1.15 : 1 }}
+              animate={{ scale: hovered === m.id ? 1.1 : 1 }}
               transition={{ duration: 0.2 }}
-              className="bg-white/90 backdrop-blur-sm text-black rounded-lg px-3 py-2 text-center shadow-lg border border-white/50"
+              className="bg-white/90 backdrop-blur-sm text-black rounded-md px-2 py-1 text-center shadow-lg border border-white/50 mb-1"
             >
-              <span className="text-xs sm:text-sm font-bold uppercase tracking-wide whitespace-nowrap">
+              <span className="text-[10px] font-bold uppercase tracking-wide whitespace-nowrap">
                 {m.label}
               </span>
             </motion.div>
+            {/* Подсказка при наведении */}
+            <motion.div
+              animate={{ opacity: hovered === m.id ? 1 : 0, height: hovered === m.id ? "auto" : 0 }}
+              transition={{ duration: 0.2 }}
+              className="overflow-hidden mb-1"
+            >
+              <p className="text-white text-[9px] opacity-80 text-center whitespace-nowrap">{m.description}</p>
+            </motion.div>
             {/* Линия-указатель вниз */}
             <motion.div
-              animate={{ height: hovered === m.id ? 32 : 20 }}
+              animate={{ height: hovered === m.id ? 28 : 16 }}
               transition={{ duration: 0.2 }}
               className="w-0.5 bg-white/70"
-              style={{ height: 20 }}
+              style={{ height: 16 }}
             />
             {/* Точка */}
             <motion.div
               animate={{ scale: hovered === m.id ? 1.5 : 1 }}
               transition={{ duration: 0.2 }}
-              className="w-3 h-3 rounded-full bg-white shadow-md border-2 border-white/50"
+              className="w-2 h-2 rounded-full bg-white shadow-md border border-white/50"
             />
           </div>
         </a>
