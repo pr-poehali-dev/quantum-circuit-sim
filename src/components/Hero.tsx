@@ -1,8 +1,33 @@
 import { useScroll, useTransform, motion } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+
+const mountains = [
+  {
+    id: "admin",
+    label: "Гора Админа",
+    href: "/admin",
+    style: { left: "18%", bottom: "32%" },
+    description: "Управление платформой",
+  },
+  {
+    id: "sk",
+    label: "Гора Своих Клиентов",
+    href: "/login",
+    style: { left: "50%", bottom: "44%", transform: "translateX(-50%)" },
+    description: "Запись и прослушивание",
+  },
+  {
+    id: "chk",
+    label: "Гора Чужих Клиентов",
+    href: "/listen",
+    style: { right: "14%", bottom: "30%" },
+    description: "Слушать компиляции",
+  },
+];
 
 export default function Hero() {
   const container = useRef<HTMLDivElement>(null);
+  const [hovered, setHovered] = useState<string | null>(null);
   const { scrollYProgress } = useScroll({
     target: container,
     offset: ["start start", "end start"],
@@ -14,10 +39,7 @@ export default function Hero() {
       ref={container}
       className="relative flex items-center justify-center h-screen overflow-hidden"
     >
-      <motion.div
-        style={{ y }}
-        className="absolute inset-0 w-full h-full"
-      >
+      <motion.div style={{ y }} className="absolute inset-0 w-full h-full">
         <img
           src="/images/mountain-landscape.jpg"
           alt="Mountain landscape"
@@ -25,19 +47,64 @@ export default function Hero() {
         />
       </motion.div>
 
-      <div className="relative z-10 text-center text-white px-6">
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6 drop-shadow-lg">
+      {/* Затемнение для читаемости */}
+      <div className="absolute inset-0 bg-black/30 z-[1]" />
+
+      {/* Кликабельные горы */}
+      {mountains.map((m) => (
+        <a
+          key={m.id}
+          href={m.href}
+          onMouseEnter={() => setHovered(m.id)}
+          onMouseLeave={() => setHovered(null)}
+          className="absolute z-10 flex flex-col items-center group cursor-pointer"
+          style={m.style as React.CSSProperties}
+        >
+          {/* Подсветка при наведении */}
+          <motion.div
+            animate={{ opacity: hovered === m.id ? 1 : 0, scale: hovered === m.id ? 1 : 0.8 }}
+            transition={{ duration: 0.25 }}
+            className="mb-2 bg-white/10 backdrop-blur-sm border border-white/30 rounded-xl px-4 py-2 text-center"
+          >
+            <p className="text-white text-xs opacity-80">{m.description}</p>
+          </motion.div>
+
+          {/* Маркер */}
+          <div className="flex flex-col items-center">
+            <motion.div
+              animate={{ scale: hovered === m.id ? 1.15 : 1 }}
+              transition={{ duration: 0.2 }}
+              className="bg-white/90 backdrop-blur-sm text-black rounded-lg px-3 py-2 text-center shadow-lg border border-white/50"
+            >
+              <span className="text-xs sm:text-sm font-bold uppercase tracking-wide whitespace-nowrap">
+                {m.label}
+              </span>
+            </motion.div>
+            {/* Линия-указатель вниз */}
+            <motion.div
+              animate={{ height: hovered === m.id ? 32 : 20 }}
+              transition={{ duration: 0.2 }}
+              className="w-0.5 bg-white/70"
+              style={{ height: 20 }}
+            />
+            {/* Точка */}
+            <motion.div
+              animate={{ scale: hovered === m.id ? 1.5 : 1 }}
+              transition={{ duration: 0.2 }}
+              className="w-3 h-3 rounded-full bg-white shadow-md border-2 border-white/50"
+            />
+          </div>
+        </a>
+      ))}
+
+      {/* Заголовок */}
+      <div className="relative z-10 text-center text-white px-6 -mt-40">
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-4 drop-shadow-lg">
           VOICECORE
         </h1>
-        <p className="text-lg md:text-2xl max-w-2xl mx-auto opacity-90 mb-10 leading-relaxed drop-shadow">
-          Голосовые идеи вашей команды — одним совершенным текстом. ИИ собирает лучшее из каждого.
+        <p className="text-lg md:text-xl max-w-xl mx-auto opacity-80 leading-relaxed drop-shadow">
+          Голосовые идеи вашей команды — одним совершенным текстом.
         </p>
-        <a
-          href="#about"
-          className="inline-block bg-white text-black px-8 py-3 uppercase tracking-widest text-sm font-semibold hover:bg-neutral-200 transition-colors duration-300"
-        >
-          Узнать больше
-        </a>
       </div>
     </div>
   );
