@@ -1,5 +1,9 @@
 import Icon from "@/components/ui/icon";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { motion } from "framer-motion";
+
+const CAVE_IMG = "https://cdn.poehali.dev/projects/ef9784f8-14ad-431d-bd41-8f39353f3998/files/4e63a2fe-6ca9-40b5-88ae-52af75491c76.jpg";
 
 const topics = [
   { id: 1, title: "Лучшие идеи для бизнеса", recordings: 5, hasCompilation: true },
@@ -9,37 +13,93 @@ const topics = [
 
 export default function TopicsPage() {
   const navigate = useNavigate();
+  const [entered, setEntered] = useState(false);
+  const [hovered, setHovered] = useState(false);
+
+  if (!entered) {
+    return (
+      <div className="min-h-screen w-full relative overflow-hidden flex items-center justify-center">
+        <img
+          src={CAVE_IMG}
+          alt="Вход в пещеру"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/30" />
+
+        {/* Кнопка назад */}
+        <button
+          onClick={() => navigate("/")}
+          className="absolute top-6 left-6 z-20 bg-black/40 hover:bg-black/60 text-white/80 hover:text-white rounded-lg px-4 py-2 text-sm transition-all backdrop-blur-sm"
+        >
+          ← На главную
+        </button>
+
+        {/* Кнопка войти в пещеру */}
+        <motion.button
+          onClick={() => setEntered(true)}
+          onHoverStart={() => setHovered(true)}
+          onHoverEnd={() => setHovered(false)}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="relative z-10 flex flex-col items-center gap-4"
+        >
+          <motion.div
+            animate={{ scale: hovered ? 1.08 : 1, textShadow: hovered ? "0 0 30px rgba(255,200,50,0.8)" : "0 0 0px rgba(255,200,50,0)" }}
+            transition={{ duration: 0.3 }}
+            className="text-6xl"
+          >
+            🔦
+          </motion.div>
+          <motion.div
+            animate={{ opacity: hovered ? 1 : 0.8 }}
+            className="bg-amber-50/90 backdrop-blur-sm text-amber-900 font-bold uppercase tracking-widest text-sm px-6 py-3 rounded-xl border border-amber-200 shadow-lg"
+          >
+            Войти в пещеру тем
+          </motion.div>
+        </motion.button>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-white flex flex-col">
-      <div className="flex items-center gap-4 px-8 py-6 border-b border-neutral-800">
-        <button onClick={() => navigate("/")} className="text-neutral-400 hover:text-white transition-colors">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="min-h-screen text-white flex flex-col"
+      style={{ background: "linear-gradient(160deg, #0d0a05 0%, #1a1005 50%, #0a0d0a 100%)" }}
+    >
+      <div className="flex items-center gap-4 px-8 py-6 border-b border-amber-900/30">
+        <button onClick={() => setEntered(false)} className="text-amber-700 hover:text-amber-400 transition-colors">
           <Icon name="ArrowLeft" size={20} />
         </button>
-        <h1 className="text-xl font-bold uppercase tracking-widest">Гора Тем</h1>
+        <h1 className="text-xl font-bold tracking-widest text-amber-200">🕯️ Пещера Тем</h1>
       </div>
 
       <div className="flex-1 px-8 py-10 max-w-2xl mx-auto w-full">
-        <p className="text-neutral-400 mb-8 text-sm">Выберите тему для прослушивания</p>
+        <p className="text-amber-700 mb-8 text-sm">Выберите тему для прослушивания</p>
         <div className="flex flex-col gap-4">
           {topics.map((t) => (
             <button
               key={t.id}
-              className="flex items-center gap-5 bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 hover:border-neutral-600 rounded-xl px-6 py-5 text-left transition-all duration-200 group"
+              className="flex items-center gap-5 border rounded-xl px-6 py-5 text-left transition-all duration-200 group hover:border-amber-700/50"
+              style={{ background: "rgba(255,180,50,0.05)", borderColor: "rgba(255,150,30,0.15)" }}
             >
-              <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0 group-hover:bg-white/20 transition-colors">
-                <Icon name="Music" size={20} className="text-white" />
+              <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors text-xl"
+                style={{ background: "rgba(255,150,30,0.1)" }}>
+                🕯️
               </div>
               <div className="flex-1">
-                <div className="font-semibold text-white">{t.title}</div>
-                <div className="text-neutral-500 text-sm mt-0.5">{t.recordings} записей</div>
+                <div className="font-semibold text-amber-100">{t.title}</div>
+                <div className="text-amber-800 text-sm mt-0.5">{t.recordings} записей</div>
               </div>
               {t.hasCompilation ? (
                 <span className="text-xs bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-full px-3 py-1">
                   Компиляция готова
                 </span>
               ) : (
-                <span className="text-xs bg-neutral-700/50 text-neutral-500 border border-neutral-700 rounded-full px-3 py-1">
+                <span className="text-xs text-amber-800 border border-amber-900/40 rounded-full px-3 py-1">
                   В обработке
                 </span>
               )}
@@ -47,6 +107,6 @@ export default function TopicsPage() {
           ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
