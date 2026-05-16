@@ -118,14 +118,10 @@ export default function Hero() {
           transition={{ duration: 0.2 }}
           className="w-full h-full relative flex flex-col items-center justify-end"
         >
-          {/* Подсказка при наведении */}
-          <motion.div
-            animate={{ opacity: hovered === "house" ? 1 : 0, y: hovered === "house" ? 0 : 4 }}
-            transition={{ duration: 0.2 }}
-            className="absolute -top-8 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-sm text-black rounded-md px-2 py-1 text-[10px] font-bold uppercase tracking-wide whitespace-nowrap shadow"
-          >
-            Войти / Регистрация
-          </motion.div>
+          {/* Постоянная надпись над домиком */}
+          <div className="absolute -top-7 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-sm text-black rounded-md px-2 py-1 text-[10px] font-bold uppercase tracking-wide whitespace-nowrap shadow">
+            Регистрация
+          </div>
           {/* Прозрачная зона с рамкой при наведении */}
           <motion.div
             animate={{ opacity: hovered === "house" ? 1 : 0 }}
