@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import AdminPanel from "./pages/AdminPanel";
+import HousePage from "./pages/HousePage";
 import TopicsPage from "./pages/TopicsPage";
 import SKPanel from "./pages/SKPanel";
 import CHKPanel from "./pages/CHKPanel";
@@ -21,6 +22,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/house" element={<HousePage />} />
           <Route path="/admin" element={<AdminPanel />} />
           <Route path="/topics" element={<TopicsPage />} />
           <Route path="/login" element={<SKPanel />} />

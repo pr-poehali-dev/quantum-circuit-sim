@@ -105,6 +105,30 @@ export default function Hero() {
         </button>
       ))}
 
+      {/* Домик — точка входа */}
+      <button
+        onClick={() => navigate("/house")}
+        onMouseEnter={() => setHovered("house")}
+        onMouseLeave={() => setHovered(null)}
+        className="absolute z-10 cursor-pointer"
+        style={{ left: "14%", bottom: "28%" }}
+      >
+        <motion.div
+          animate={{ scale: hovered === "house" ? 1.15 : 1 }}
+          transition={{ duration: 0.2 }}
+          className="flex flex-col items-center gap-1"
+        >
+          <motion.div
+            animate={{ opacity: hovered === "house" ? 1 : 0, y: hovered === "house" ? 0 : 4 }}
+            transition={{ duration: 0.2 }}
+            className="bg-white/90 backdrop-blur-sm text-black rounded-md px-2 py-1 text-[10px] font-bold uppercase tracking-wide whitespace-nowrap shadow"
+          >
+            Войти / Регистрация
+          </motion.div>
+          <span className="text-4xl drop-shadow-lg">🏡</span>
+        </motion.div>
+      </button>
+
       {/* Заголовок */}
       <div className="relative z-10 text-center text-white px-6 -mt-40">
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-4 drop-shadow-lg">
