@@ -34,10 +34,11 @@ const mountains = [
 ];
 
 const clouds = [
-  { id: 1, top: "8%", width: 120, opacity: 0.75, duration: 28, delay: 0, startX: "5%" },
-  { id: 2, top: "14%", width: 80, opacity: 0.55, duration: 38, delay: 6, startX: "20%" },
-  { id: 3, top: "6%", width: 160, opacity: 0.65, duration: 50, delay: 12, startX: "40%" },
-  { id: 4, top: "18%", width: 100, opacity: 0.5, duration: 34, delay: 20, startX: "65%" },
+  { id: 1, top: "6%",  width: 260, opacity: 0.88, duration: 55, delay: 0,  startX: "-280px", scale: 1 },
+  { id: 2, top: "12%", width: 180, opacity: 0.70, duration: 75, delay: 8,  startX: "15vw",   scale: 0.8 },
+  { id: 3, top: "4%",  width: 340, opacity: 0.80, duration: 90, delay: 20, startX: "40vw",   scale: 1.1 },
+  { id: 4, top: "16%", width: 200, opacity: 0.60, duration: 65, delay: 35, startX: "70vw",   scale: 0.9 },
+  { id: 5, top: "9%",  width: 150, opacity: 0.55, duration: 80, delay: 50, startX: "55vw",   scale: 0.7 },
 ];
 
 const flowers = [
@@ -51,26 +52,47 @@ const flowers = [
   { id: 8, left: "50%", bottom: "7%", emoji: "🌸", size: 14, delay: 0.6, amplitude: 3 },
 ];
 
-function Cloud({ top, width, opacity, duration, delay, startX }: typeof clouds[0]) {
+function Cloud({ top, width, opacity, duration, delay, startX, scale }: typeof clouds[0]) {
+  const h = width * 0.42;
   return (
     <motion.div
       className="absolute pointer-events-none"
-      style={{ top, width, opacity, zIndex: 2 }}
+      style={{ top, width, opacity, zIndex: 2, filter: "blur(0.5px)" }}
       initial={{ x: startX }}
-      animate={{ x: ["0vw", "110vw"] }}
-      transition={{
-        duration,
-        delay,
-        repeat: Infinity,
-        ease: "linear",
-        repeatDelay: 0,
-      }}
+      animate={{ x: ["0vw", "115vw"] }}
+      transition={{ duration, delay, repeat: Infinity, ease: "linear" }}
     >
-      <svg viewBox="0 0 200 80" fill="white" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="100" cy="55" rx="90" ry="25" />
-        <ellipse cx="70" cy="45" rx="50" ry="30" />
-        <ellipse cx="130" cy="42" rx="45" ry="28" />
-        <ellipse cx="100" cy="38" rx="40" ry="25" />
+      <svg
+        viewBox="0 0 400 160"
+        xmlns="http://www.w3.org/2000/svg"
+        width={width}
+        height={h}
+        style={{ transform: `scaleY(${scale})`, display: "block" }}
+      >
+        <defs>
+          <radialGradient id={`cg${delay}`} cx="50%" cy="40%" r="55%">
+            <stop offset="0%" stopColor="rgba(255,255,255,1)" />
+            <stop offset="60%" stopColor="rgba(240,248,255,0.95)" />
+            <stop offset="100%" stopColor="rgba(210,230,255,0.5)" />
+          </radialGradient>
+          <filter id={`cf${delay}`}>
+            <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
+            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+          </filter>
+        </defs>
+        {/* Основная масса */}
+        <ellipse cx="200" cy="115" rx="190" ry="42" fill={`url(#cg${delay})`} />
+        {/* Выпуклости сверху */}
+        <ellipse cx="140" cy="90" rx="90" ry="65" fill={`url(#cg${delay})`} />
+        <ellipse cx="240" cy="82" rx="80" ry="70" fill={`url(#cg${delay})`} />
+        <ellipse cx="320" cy="100" rx="70" ry="52" fill={`url(#cg${delay})`} />
+        <ellipse cx="80"  cy="105" rx="65" ry="46" fill={`url(#cg${delay})`} />
+        {/* Верхние пузыри */}
+        <ellipse cx="200" cy="65" rx="60" ry="52" fill={`url(#cg${delay})`} />
+        <ellipse cx="270" cy="72" rx="48" ry="44" fill={`url(#cg${delay})`} />
+        <ellipse cx="155" cy="75" rx="44" ry="40" fill={`url(#cg${delay})`} />
+        {/* Мягкое дно */}
+        <ellipse cx="200" cy="130" rx="180" ry="25" fill="rgba(200,220,255,0.35)" />
       </svg>
     </motion.div>
   );
