@@ -131,6 +131,49 @@ export default function Hero() {
         </motion.div>
       </button>
 
+      {/* Камень с правилами — слева */}
+      <motion.button
+        onClick={() => setHovered(hovered === "stone" ? null : "stone")}
+        onMouseEnter={() => setHovered("stone")}
+        onMouseLeave={() => setHovered(null)}
+        className="absolute z-10 cursor-pointer"
+        style={{ left: "2%", bottom: "18%" }}
+        animate={{ scale: hovered === "stone" ? 1.03 : 1 }}
+        transition={{ duration: 0.2 }}
+      >
+        {/* Камень */}
+        <div
+          className="relative px-5 py-4 text-left"
+          style={{
+            background: "linear-gradient(160deg, #6b6b6b 0%, #4a4a4a 40%, #3a3a3a 100%)",
+            borderRadius: "40% 35% 45% 38% / 30% 40% 35% 42%",
+            boxShadow: "4px 6px 16px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -2px 4px rgba(0,0,0,0.4)",
+            border: "1px solid rgba(120,120,120,0.4)",
+            minWidth: "160px",
+            maxWidth: "190px",
+          }}
+        >
+          {/* Гравировка */}
+          <p
+            className="text-[10px] leading-relaxed font-medium"
+            style={{
+              color: "rgba(220,210,190,0.85)",
+              textShadow: "0 1px 2px rgba(0,0,0,0.8), 0 -1px 0 rgba(0,0,0,0.5)",
+              fontFamily: "Georgia, serif",
+            }}
+          >
+            <span className="block mb-1">1. Скидки только Своим.</span>
+            <span className="block">2. Измени описание аромата более чем на 5% — получи <strong style={{ color: "rgba(255,220,100,0.9)" }}>+300 бонусов</strong></span>
+          </p>
+
+          {/* Блик на камне */}
+          <div
+            className="absolute top-2 left-4 w-8 h-2 rounded-full opacity-20"
+            style={{ background: "white", transform: "rotate(-15deg)" }}
+          />
+        </div>
+      </motion.button>
+
       {/* Заголовок */}
       <div className="relative z-10 text-center text-white px-6 -mt-40">
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-4 drop-shadow-lg">
