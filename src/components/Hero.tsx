@@ -48,7 +48,7 @@ export default function Hero() {
     >
       <motion.div style={{ y }} className="absolute inset-0 w-full h-full">
         <img
-          src="https://cdn.poehali.dev/projects/ef9784f8-14ad-431d-bd41-8f39353f3998/files/2244bf7f-9db3-4ef9-8f0c-27a372ccada1.jpg"
+          src="https://cdn.poehali.dev/projects/ef9784f8-14ad-431d-bd41-8f39353f3998/files/799e9dcc-371d-4af2-97d4-e0eccefc1258.jpg"
           alt="Mountain landscape"
           className="w-full h-full object-cover"
         />
