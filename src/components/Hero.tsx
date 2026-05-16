@@ -19,7 +19,7 @@ const mountains = [
   },
   {
     id: "sk",
-    label: "Гора Своих Клиентов",
+    label: "Гора Своих",
     href: "/login",
     style: { left: "calc(50% + 2cm)", top: "10%", transform: "translateX(-50%)" },
     description: "Запись и прослушивание",
