@@ -87,7 +87,7 @@ const topics = [
 
 export default function TopicsPage() {
   const navigate = useNavigate();
-  const [step, setStep] = useState<"enter" | "login" | "inside">("enter");
+  const [step, setStep] = useState<"choose" | "enter" | "login" | "inside">("choose");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -119,6 +119,82 @@ export default function TopicsPage() {
       setLoading(false);
     }
   };
+
+  if (step === "choose") {
+    return (
+      <div className="min-h-screen w-full relative overflow-hidden flex items-center justify-center">
+        <img src={CAVE_ENTER_IMG} alt="Вход в пещеру" className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-black/50" />
+        <button onClick={() => navigate("/")} className="absolute top-6 left-6 z-20 bg-black/40 hover:bg-black/60 text-white/80 hover:text-white rounded-lg px-4 py-2 text-sm transition-all backdrop-blur-sm">
+          ← На главную
+        </button>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          className="relative z-10 flex flex-col items-center"
+        >
+          {/* Камень */}
+          <div
+            className="relative px-14 py-10 flex flex-col items-center gap-7"
+            style={{
+              background: "linear-gradient(160deg, #6b6b6b 0%, #4a4a4a 40%, #3a3a3a 100%)",
+              borderRadius: "44% 38% 48% 40% / 32% 44% 38% 46%",
+              boxShadow: "6px 10px 40px rgba(0,0,0,0.85), inset 0 2px 0 rgba(255,255,255,0.1)",
+              border: "1px solid rgba(140,140,140,0.35)",
+              minWidth: 300,
+            }}
+          >
+            {/* Блик */}
+            <div className="absolute top-5 left-10 w-16 h-3 rounded-full opacity-15" style={{ background: "white", transform: "rotate(-15deg)" }} />
+
+            <p className="text-[11px] uppercase tracking-widest text-center" style={{ color: "rgba(220,210,190,0.7)", fontFamily: "Georgia, serif" }}>
+              Выберите вид
+            </p>
+
+            <div className="flex flex-col gap-4 w-full">
+              {/* Сказочный */}
+              <motion.button
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => setStep("enter")}
+                className="flex items-center gap-3 px-5 py-3 rounded-xl text-left transition-all"
+                style={{
+                  background: "rgba(180,100,20,0.25)",
+                  border: "1px solid rgba(200,140,50,0.4)",
+                }}
+              >
+                <span className="text-2xl">🕯️</span>
+                <div>
+                  <div className="font-bold text-sm" style={{ color: "rgba(255,220,140,0.95)", fontFamily: "Georgia, serif" }}>Сказочный вид</div>
+                  <div className="text-[10px]" style={{ color: "rgba(200,170,100,0.6)" }}>Пещера с наскальными рисунками</div>
+                </div>
+              </motion.button>
+
+              {/* Классический */}
+              <motion.button
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => navigate("/topics-classic")}
+                className="flex items-center gap-3 px-5 py-3 rounded-xl text-left transition-all"
+                style={{
+                  background: "rgba(220,220,220,0.12)",
+                  border: "1px solid rgba(200,200,200,0.3)",
+                }}
+              >
+                <span className="text-2xl">📋</span>
+                <div>
+                  <div className="font-bold text-sm" style={{ color: "rgba(230,230,230,0.95)", fontFamily: "Georgia, serif" }}>Классический вид</div>
+                  <div className="text-[10px]" style={{ color: "rgba(180,180,180,0.6)" }}>Простой и удобный список</div>
+                </div>
+              </motion.button>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    );
+  }
 
   if (step === "enter") {
     return (

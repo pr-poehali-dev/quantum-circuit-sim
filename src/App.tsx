@@ -10,6 +10,7 @@ import AdminPanel from "./pages/AdminPanel";
 import HousePage from "./pages/HousePage";
 import RegisterPage from "./pages/RegisterPage";
 import TopicsPage from "./pages/TopicsPage";
+import TopicsClassicPage from "./pages/TopicsClassicPage";
 import SKPanel from "./pages/SKPanel";
 import CHKPanel from "./pages/CHKPanel";
 import ChatPage from "./pages/ChatPage";
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/admin" element={<AdminPanel />} />
           <Route path="/topics" element={<TopicsPage />} />
+          <Route path="/topics-classic" element={<TopicsClassicPage />} />
           <Route path="/login" element={<SKPanel />} />
           <Route path="/chat" element={<ChatPage />} />
           <Route path="/listen" element={<CHKPanel />} />
