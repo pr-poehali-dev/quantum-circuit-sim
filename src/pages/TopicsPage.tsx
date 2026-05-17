@@ -268,6 +268,95 @@ export default function TopicsPage() {
       <img src={CAVE_INNER_IMG} alt="Пещера тем" className="absolute inset-0 w-full h-full object-cover" />
       <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(5,3,0,0.7) 100%)" }} />
 
+      {/* Сундуки по краям */}
+      {[
+        { left: "0.5%",  bottom: "6%",  rotate: -4,  scale: 1.05 },
+        { left: "2%",    bottom: "18%", rotate: 3,   scale: 0.9 },
+        { left: "0%",    bottom: "32%", rotate: -2,  scale: 0.95 },
+        { left: "1.5%",  bottom: "46%", rotate: 5,   scale: 0.85 },
+        { left: "0.5%",  bottom: "60%", rotate: -3,  scale: 1 },
+        { right: "0.5%", bottom: "6%",  rotate: 4,   scale: 1.05 },
+        { right: "2%",   bottom: "18%", rotate: -3,  scale: 0.9 },
+        { right: "0%",   bottom: "32%", rotate: 2,   scale: 0.95 },
+        { right: "1.5%", bottom: "46%", rotate: -5,  scale: 0.85 },
+        { right: "0.5%", bottom: "60%", rotate: 3,   scale: 1 },
+      ].map((pos, i) => (
+        <motion.div
+          key={i}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 + i * 0.07, duration: 0.5 }}
+          className="absolute pointer-events-none"
+          style={{
+            ...pos,
+            transform: `rotate(${pos.rotate}deg) scale(${pos.scale})`,
+            zIndex: 3,
+            width: 72,
+            filter: "drop-shadow(0 6px 18px rgba(0,0,0,0.85))",
+          }}
+        >
+          <svg viewBox="0 0 72 52" xmlns="http://www.w3.org/2000/svg" width="72" height="52">
+            {/* Тень под сундуком */}
+            <ellipse cx="36" cy="51" rx="28" ry="4" fill="rgba(0,0,0,0.5)" />
+            {/* Основа сундука */}
+            <rect x="4" y="26" width="64" height="22" rx="3" fill="#4a2e10" />
+            {/* Деревянные доски (горизонтальные) */}
+            <rect x="4" y="30" width="64" height="3" fill="#3a2208" opacity="0.5" />
+            <rect x="4" y="37" width="64" height="3" fill="#3a2208" opacity="0.5" />
+            <rect x="4" y="44" width="64" height="3" fill="#3a2208" opacity="0.5" />
+            {/* Железные полоски (вертикальные) */}
+            <rect x="8"  y="26" width="5" height="22" rx="1" fill="#6b6b6b" />
+            <rect x="8"  y="26" width="5" height="22" rx="1" fill="url(#iron)" />
+            <rect x="28" y="26" width="5" height="22" rx="1" fill="#6b6b6b" />
+            <rect x="28" y="26" width="5" height="22" rx="1" fill="url(#iron)" />
+            <rect x="59" y="26" width="5" height="22" rx="1" fill="#6b6b6b" />
+            <rect x="59" y="26" width="5" height="22" rx="1" fill="url(#iron)" />
+            {/* Крышка */}
+            <rect x="4" y="12" width="64" height="16" rx="3" fill="#5a3815" />
+            {/* Выпуклость крышки */}
+            <ellipse cx="36" cy="12" rx="32" ry="5" fill="#6b4420" />
+            {/* Деревянные полосы крышки */}
+            <rect x="4" y="15" width="64" height="3" fill="#3a2208" opacity="0.4" />
+            <rect x="4" y="21" width="64" height="3" fill="#3a2208" opacity="0.4" />
+            {/* Железные полоски крышки */}
+            <rect x="8"  y="12" width="5" height="16" rx="1" fill="#6b6b6b" />
+            <rect x="8"  y="12" width="5" height="16" rx="1" fill="url(#iron)" />
+            <rect x="28" y="12" width="5" height="16" rx="1" fill="#6b6b6b" />
+            <rect x="28" y="12" width="5" height="16" rx="1" fill="url(#iron)" />
+            <rect x="59" y="12" width="5" height="16" rx="1" fill="#6b6b6b" />
+            <rect x="59" y="12" width="5" height="16" rx="1" fill="url(#iron)" />
+            {/* Горизонтальная железная полоска посередине */}
+            <rect x="4" y="24" width="64" height="4" rx="1" fill="#5a5a5a" />
+            <rect x="4" y="24" width="64" height="4" rx="1" fill="url(#iron-h)" />
+            {/* Замок */}
+            <rect x="30" y="21" width="12" height="9" rx="2" fill="#888" />
+            <rect x="30" y="21" width="12" height="9" rx="2" fill="url(#lock-g)" />
+            <path d="M33 21 Q33 17 39 17 Q45 17 45 21" stroke="#777" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+            <circle cx="36" cy="25" r="2" fill="#444" />
+            {/* Блики на металле */}
+            <rect x="9"  y="13" width="2" height="4" rx="1" fill="white" opacity="0.18" />
+            <rect x="29" y="13" width="2" height="4" rx="1" fill="white" opacity="0.18" />
+            <rect x="60" y="13" width="2" height="4" rx="1" fill="white" opacity="0.18" />
+            <defs>
+              <linearGradient id="iron" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stopColor="#888" />
+                <stop offset="40%" stopColor="#bbb" stopOpacity="0.6" />
+                <stop offset="100%" stopColor="#555" />
+              </linearGradient>
+              <linearGradient id="iron-h" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#999" stopOpacity="0.7" />
+                <stop offset="100%" stopColor="#333" stopOpacity="0.5" />
+              </linearGradient>
+              <linearGradient id="lock-g" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#aaa" />
+                <stop offset="100%" stopColor="#666" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </motion.div>
+      ))}
+
+
       <div className="relative z-10 flex items-center gap-4 px-8 py-6 border-b border-amber-900/30 backdrop-blur-sm bg-black/20">
         <button onClick={() => setStep("enter")} className="text-amber-700 hover:text-amber-400 transition-colors">
           <Icon name="ArrowLeft" size={20} />
