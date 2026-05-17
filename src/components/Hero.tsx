@@ -34,11 +34,11 @@ const mountains = [
 ];
 
 const clouds = [
-  { id: 1, top: "6%",  width: 260, opacity: 0.88, duration: 55, delay: 0,  startX: "-280px", scale: 1 },
-  { id: 2, top: "12%", width: 180, opacity: 0.70, duration: 75, delay: 8,  startX: "15vw",   scale: 0.8 },
-  { id: 3, top: "4%",  width: 340, opacity: 0.80, duration: 90, delay: 20, startX: "40vw",   scale: 1.1 },
-  { id: 4, top: "16%", width: 200, opacity: 0.60, duration: 65, delay: 35, startX: "70vw",   scale: 0.9 },
-  { id: 5, top: "9%",  width: 150, opacity: 0.55, duration: 80, delay: 50, startX: "55vw",   scale: 0.7 },
+  { id: 1, top: "1%",  width: 65,  opacity: 0.88, duration: 55, delay: 0,  startX: "-80px", scale: 1 },
+  { id: 2, top: "3%",  width: 45,  opacity: 0.70, duration: 75, delay: 8,  startX: "15vw",  scale: 0.8 },
+  { id: 3, top: "0%",  width: 85,  opacity: 0.80, duration: 90, delay: 20, startX: "40vw",  scale: 1.1 },
+  { id: 4, top: "4%",  width: 50,  opacity: 0.60, duration: 65, delay: 35, startX: "70vw",  scale: 0.9 },
+  { id: 5, top: "2%",  width: 38,  opacity: 0.55, duration: 80, delay: 50, startX: "55vw",  scale: 0.7 },
 ];
 
 const flowers = [
