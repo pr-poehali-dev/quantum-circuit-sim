@@ -4,13 +4,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import Icon from "@/components/ui/icon";
 
 const CAVE_LOGIN_URL = "https://functions.poehali.dev/b18ddbe0-49d6-4985-a81f-5d06e443ed45";
+const GET_TOPICS_URL = "https://functions.poehali.dev/2a044b28-f6e5-44a7-b59e-20366d15c30d";
 const CAVE_ENTER_IMG = "https://avatars.mds.yandex.net/get-shedevrum/15373038/img_9c0f7844dfb411efbc3f6aa9af691ef4/orig";
 
-const topics = [
-  { id: 1, title: "Лучшие идеи для бизнеса", recordings: 5, hasCompilation: true },
-  { id: 2, title: "Как повысить продуктивность", recordings: 3, hasCompilation: true },
-  { id: 3, title: "Вдохновение каждый день", recordings: 7, hasCompilation: false },
-];
+type Topic = { id: number; title: string; recordings: number; hasCompilation: boolean };
 
 export default function TopicsClassicPage() {
   const navigate = useNavigate();
@@ -20,6 +17,7 @@ export default function TopicsClassicPage() {
   const [clientName, setClientName] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [topics, setTopics] = useState<Topic[]>([]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,6 +32,9 @@ export default function TopicsClassicPage() {
       const data = await res.json();
       if (data.ok) {
         setClientName(data.username);
+        const topicsRes = await fetch(GET_TOPICS_URL);
+        const topicsData = await topicsRes.json();
+        setTopics(topicsData.topics || []);
         setLoggedIn(true);
       } else {
         setError(data.error || "Неверный логин или пароль");

@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const CAVE_LOGIN_URL = "https://functions.poehali.dev/b18ddbe0-49d6-4985-a81f-5d06e443ed45";
+const GET_TOPICS_URL = "https://functions.poehali.dev/2a044b28-f6e5-44a7-b59e-20366d15c30d";
 const CAVE_ENTER_IMG = "https://avatars.mds.yandex.net/get-shedevrum/15373038/img_9c0f7844dfb411efbc3f6aa9af691ef4/orig";
 const CAVE_INNER_IMG = "https://img.freepik.com/free-photo/archaeological-cave-paintings_23-2151786614.jpg?semt=ais_hybrid&w=740";
 
@@ -79,11 +80,7 @@ const Stone = () => {
   );
 };
 
-const topics = [
-  { id: 1, title: "Лучшие идеи для бизнеса", recordings: 5, hasCompilation: true },
-  { id: 2, title: "Как повысить продуктивность", recordings: 3, hasCompilation: true },
-  { id: 3, title: "Вдохновение каждый день", recordings: 7, hasCompilation: false },
-];
+type Topic = { id: number; title: string; recordings: number; hasCompilation: boolean };
 
 export default function TopicsPage() {
   const navigate = useNavigate();
@@ -94,6 +91,7 @@ export default function TopicsPage() {
   const [loading, setLoading] = useState(false);
   const [clientName, setClientName] = useState("");
   const [enterHovered, setEnterHovered] = useState(false);
+  const [topics, setTopics] = useState<Topic[]>([]);
   const torchRef = useRef<HTMLDivElement>(null);
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -109,6 +107,9 @@ export default function TopicsPage() {
       const data = await res.json();
       if (data.ok) {
         setClientName(data.username);
+        const topicsRes = await fetch(GET_TOPICS_URL);
+        const topicsData = await topicsRes.json();
+        setTopics(topicsData.topics || []);
         setStep("inside");
       } else {
         setError(data.error || "Неверный логин или пароль");
