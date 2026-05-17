@@ -1,6 +1,7 @@
 import Icon from "@/components/ui/icon";
 import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
+import * as XLSX from "xlsx";
 
 const UPLOAD_TOPICS_URL = "https://functions.poehali.dev/f35827d9-98e1-492f-8bc9-4cc7496cd680";
 
@@ -37,6 +38,19 @@ export default function AdminPanel() {
     }
   };
 
+  const downloadTemplate = () => {
+    const ws = XLSX.utils.aoa_to_sheet([
+      ["Название темы", "Кол-во записей", "Компиляция готова (1=да, 0=нет)"],
+      ["Лучшие идеи для бизнеса", 5, 1],
+      ["Как повысить продуктивность", 3, 1],
+      ["Вдохновение каждый день", 7, 0],
+    ]);
+    ws["!cols"] = [{ wch: 40 }, { wch: 20 }, { wch: 32 }];
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Темы");
+    XLSX.writeFile(wb, "шаблон_темы.xlsx");
+  };
+
   const actions = [
     { icon: "ListMusic", label: "Управление темами", desc: "Создавать, редактировать, удалять темы" },
     { icon: "Users", label: "Клиенты", desc: "Приглашать СК, блокировать, просматривать" },
@@ -67,14 +81,23 @@ export default function AdminPanel() {
               <div className="font-semibold text-white">Загрузить темы из Excel</div>
               <div className="text-neutral-500 text-sm mt-0.5">Колонки: Название | Кол-во записей | Компиляция готова (1/0)</div>
             </div>
-            <button
-              onClick={() => fileInputRef.current?.click()}
-              disabled={uploading}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-700 hover:bg-amber-600 disabled:bg-amber-900 text-white text-sm font-medium transition-colors"
-            >
-              <Icon name="Upload" size={16} />
-              {uploading ? "Загружаю..." : "Выбрать файл"}
-            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={downloadTemplate}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-neutral-700 hover:bg-neutral-600 text-white text-sm font-medium transition-colors"
+              >
+                <Icon name="FileDown" size={16} />
+                Шаблон
+              </button>
+              <button
+                onClick={() => fileInputRef.current?.click()}
+                disabled={uploading}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-700 hover:bg-amber-600 disabled:bg-amber-900 text-white text-sm font-medium transition-colors"
+              >
+                <Icon name="Upload" size={16} />
+                {uploading ? "Загружаю..." : "Загрузить"}
+              </button>
+            </div>
             <input ref={fileInputRef} type="file" accept=".xlsx,.xls" className="hidden" onChange={handleFileChange} />
           </div>
           {uploadResult && (
