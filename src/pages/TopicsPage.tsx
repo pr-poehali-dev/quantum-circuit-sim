@@ -183,7 +183,7 @@ export default function TopicsPage() {
             <div className="text-center mb-8">
               <div className="text-4xl mb-3">🕯️</div>
               <h2 className="text-amber-200 font-bold text-xl tracking-widest uppercase" style={{ fontFamily: "Georgia, serif" }}>
-                Пещера Тем
+                Аромапещера
               </h2>
               <p className="text-amber-800 text-xs mt-1">Только для своих</p>
             </div>
@@ -276,7 +276,7 @@ export default function TopicsPage() {
           <Icon name="ArrowLeft" size={20} />
         </button>
         <h1 className="text-xl font-bold tracking-widest text-amber-200" style={{ fontFamily: "Georgia, serif" }}>
-          🕯️ Пещера Тем
+          🕯️ Аромапещера
         </h1>
         {clientName && (
           <span className="ml-auto text-amber-800 text-xs">Привет, {clientName}</span>

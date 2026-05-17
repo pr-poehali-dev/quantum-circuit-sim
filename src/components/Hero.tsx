@@ -12,7 +12,7 @@ const mountains = [
   },
   {
     id: "topics",
-    label: "Пещера Тем",
+    label: "Аромапещера",
     href: "/topics",
     style: { left: "32%", top: "14%" },
     description: "Все доступные темы",
