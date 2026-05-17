@@ -48,8 +48,7 @@ const flowers = [
   { id: 4, left: "72%", bottom: "16%", emoji: "🌼", size: 16, delay: 0.3, amplitude: 6 },
   { id: 5, left: "76%", bottom: "12%", emoji: "🌸", size: 22, delay: 0.9, amplitude: 4 },
   { id: 6, left: "80%", bottom: "14%", emoji: "🌻", size: 18, delay: 0.5, amplitude: 5 },
-  { id: 7, left: "45%", bottom: "9%", emoji: "🌼", size: 16, delay: 1.1, amplitude: 4 },
-  { id: 8, left: "50%", bottom: "7%", emoji: "🌸", size: 14, delay: 0.6, amplitude: 3 },
+
 ];
 
 function Cloud({ top, width, opacity, duration, delay, startX, scale }: typeof clouds[0]) {
