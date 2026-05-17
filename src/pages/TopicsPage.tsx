@@ -268,26 +268,66 @@ export default function TopicsPage() {
       <img src={CAVE_INNER_IMG} alt="Пещера тем" className="absolute inset-0 w-full h-full object-cover" />
       <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(5,3,0,0.7) 100%)" }} />
 
-      {/* Сундук */}
-      <motion.img
-        src="https://masterpiecer-images.s3.yandex.net/89e20ffc886e11ee9b6d92669a1675b3:upscaled"
-        alt="Сундук"
+      {/* Сундук с темами на крышке */}
+      <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, delay: 0.4 }}
-        className="absolute pointer-events-none"
-        style={{
-          bottom: "0%",
-          right: "6%",
-          width: "22%",
-          maxWidth: 320,
-          zIndex: 4,
-          filter: "drop-shadow(0 10px 40px rgba(0,0,0,0.9)) brightness(0.85)",
-        }}
-      />
+        className="absolute"
+        style={{ bottom: "0%", right: "4%", width: "28%", maxWidth: 360, zIndex: 4 }}
+      >
+        {/* Темы на крышке сундука */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.9 }}
+          className="absolute w-full"
+          style={{ bottom: "62%", left: 0, padding: "0 8%" }}
+        >
+          <div
+            className="rounded-lg px-3 py-2"
+            style={{
+              background: "rgba(10,5,0,0.75)",
+              border: "1px solid rgba(180,130,40,0.3)",
+              backdropFilter: "blur(2px)",
+            }}
+          >
+            <p className="text-amber-600 text-[9px] uppercase tracking-widest mb-1.5 text-center" style={{ fontFamily: "Georgia, serif" }}>
+              Темы
+            </p>
+            <div className="flex flex-col gap-1">
+              {topics.map((t, i) => (
+                <motion.button
+                  key={t.id}
+                  initial={{ opacity: 0, x: 10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 1 + i * 0.1 }}
+                  className="flex items-center justify-between gap-2 text-left rounded px-2 py-1 transition-all"
+                  style={{ background: "rgba(255,160,30,0.05)" }}
+                  onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,160,30,0.12)")}
+                  onMouseLeave={e => (e.currentTarget.style.background = "rgba(255,160,30,0.05)")}
+                >
+                  <span className="text-amber-200 text-[10px] leading-tight" style={{ fontFamily: "Georgia, serif" }}>
+                    🕯️ {t.title}
+                  </span>
+                  {t.hasCompilation ? (
+                    <span className="text-[8px] text-emerald-400 whitespace-nowrap">✓ готово</span>
+                  ) : (
+                    <span className="text-[8px] text-amber-800 whitespace-nowrap">в обр.</span>
+                  )}
+                </motion.button>
+              ))}
+            </div>
+          </div>
+        </motion.div>
 
-
-
+        <img
+          src="https://masterpiecer-images.s3.yandex.net/89e20ffc886e11ee9b6d92669a1675b3:upscaled"
+          alt="Сундук"
+          className="w-full pointer-events-none"
+          style={{ filter: "drop-shadow(0 10px 40px rgba(0,0,0,0.9)) brightness(0.85)" }}
+        />
+      </motion.div>
 
       <div className="relative z-10 flex items-center gap-4 px-8 py-6 border-b border-amber-900/30 backdrop-blur-sm bg-black/20">
         <button onClick={() => setStep("enter")} className="text-amber-700 hover:text-amber-400 transition-colors">
@@ -301,40 +341,7 @@ export default function TopicsPage() {
         )}
       </div>
 
-      <div className="relative z-10 flex-1 px-8 py-10 max-w-2xl mx-auto w-full">
-        <p className="text-amber-600 mb-8 text-sm" style={{ fontFamily: "Georgia, serif" }}>
-          Выберите тему для прослушивания
-        </p>
-        <div className="flex flex-col gap-4">
-          {topics.map((t, i) => (
-            <motion.button
-              key={t.id}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.1 + 0.2 }}
-              className="flex items-center gap-5 border rounded-xl px-6 py-5 text-left transition-all duration-200 group hover:border-amber-700/50 backdrop-blur-sm"
-              style={{ background: "rgba(10,6,2,0.55)", borderColor: "rgba(180,130,50,0.2)" }}
-            >
-              <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 text-xl" style={{ background: "rgba(180,130,30,0.15)" }}>
-                🕯️
-              </div>
-              <div className="flex-1">
-                <div className="font-semibold text-amber-100" style={{ fontFamily: "Georgia, serif" }}>{t.title}</div>
-                <div className="text-amber-800 text-sm mt-0.5">{t.recordings} записей</div>
-              </div>
-              {t.hasCompilation ? (
-                <span className="text-xs bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-full px-3 py-1">
-                  Компиляция готова
-                </span>
-              ) : (
-                <span className="text-xs text-amber-800 border border-amber-900/40 rounded-full px-3 py-1">
-                  В обработке
-                </span>
-              )}
-            </motion.button>
-          ))}
-        </div>
-      </div>
+      <div className="relative z-10 flex-1" />
     </motion.div>
   );
 }
