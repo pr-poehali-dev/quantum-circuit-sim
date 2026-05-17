@@ -268,6 +268,24 @@ export default function TopicsPage() {
       <img src={CAVE_INNER_IMG} alt="Пещера тем" className="absolute inset-0 w-full h-full object-cover" />
       <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(5,3,0,0.7) 100%)" }} />
 
+      {/* Сундук */}
+      <motion.img
+        src="https://masterpiecer-images.s3.yandex.net/89e20ffc886e11ee9b6d92669a1675b3:upscaled"
+        alt="Сундук"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, delay: 0.4 }}
+        className="absolute pointer-events-none"
+        style={{
+          bottom: "0%",
+          right: "6%",
+          width: "22%",
+          maxWidth: 320,
+          zIndex: 4,
+          filter: "drop-shadow(0 10px 40px rgba(0,0,0,0.9)) brightness(0.85)",
+        }}
+      />
+
 
 
 
