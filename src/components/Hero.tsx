@@ -205,19 +205,6 @@ export default function Hero() {
         </button>
       ))}
 
-      {/* Лошадь с жеребёнком */}
-      <div
-        className="absolute pointer-events-none"
-        style={{ left: "20%", bottom: "33%", width: "12%", zIndex: 5 }}
-      >
-        <img
-          src="https://cdn.poehali.dev/projects/ef9784f8-14ad-431d-bd41-8f39353f3998/files/c825e668-2ebb-41eb-8874-54cb023ed1a3.jpg"
-          alt="Лошадь с жеребёнком"
-          className="w-full"
-          style={{ mixBlendMode: "normal", opacity: 0.95 }}
-        />
-      </div>
-
       {/* Домик */}
       <button
         onClick={() => navigate("/house")}
